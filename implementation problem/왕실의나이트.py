@@ -2,8 +2,10 @@ data = input()
 row = int(data[1])
 column = ord(data[0]) - ord('a') + 1
 
+# 길 저장
 path = [(-2, 1), (2, 1), (2, -1), (-2, -1), (1, 2), (-1, 2), (1, -2), (-1, -2)]
 
+# 경로 더하고 검사
 count = 0
 for step in path:
     next_row = row + step[0]
