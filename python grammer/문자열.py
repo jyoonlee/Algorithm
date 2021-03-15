@@ -17,3 +17,6 @@ print('SH' in a)
 print('BCD' in a)
 print('CE' in a)
 
+print('X' not in a)
+
+
