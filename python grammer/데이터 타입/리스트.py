@@ -23,10 +23,9 @@ print(array)
 array.count(a)  # 리스트에서 특정한 값을 가지는 데이터 개수를 카운트
 array.remove([1])  # 리스트 내에서 특정 값 제거, 여러 개일 경우 하나만 제거
 
-
 # 특정 값을 모두 제거
-a = [1,2,3,4,5,5,5,5]
-remove_set = [3,5]
+a = [1, 2, 3, 4, 5, 5, 5, 5]
+remove_set = [3, 5]
 
 # remove_set에 포함되지 않은 값들만 저장
 result = [i for i in a if i not in remove_set]

@@ -50,3 +50,21 @@ b.update(data)
 a.remove(4)
 print(a)
 print(b)
+
+# list에서 set에 있는 항목 제외하기
+a = [1, 2, 3, 4, 5, 6]
+remove_set = {3, 5}
+
+result = []
+for i in a:
+    if i not in remove_set:
+        result.append(i)
+
+print(result)
+
+# 위에 표현과 같은 식
+a = {1, 2, 3, 4, 5, 6}
+remove_set = {3, 5}
+
+result = [i for i in a if i not in remove_set]
+print(result)
