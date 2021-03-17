@@ -1,3 +1,6 @@
-n = int(input())
-for i in range(n, 0, -1):
-    print(i)
+a, b = map(int, input().split())
+n = list(input().split())
+
+for i in n:
+    if b > int(i):
+        print(i, end=" ")

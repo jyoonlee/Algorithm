@@ -30,3 +30,7 @@ remove_set = [3, 5]
 # remove_set에 포함되지 않은 값들만 저장
 result = [i for i in a if i not in remove_set]
 print(result)
+
+
+# 리스트로 입력받기
+n = list(input().split())
