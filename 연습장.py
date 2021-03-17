@@ -1,6 +1,6 @@
-a, b = map(int, input().split())
-n = list(input().split())
+import sys
+T = int(sys.stdin.readline().rstrip())
 
-for i in n:
-    if b > int(i):
-        print(i, end=" ")
+for i in range(T):
+    A,B = map(int, sys.stdin.readline().split())
+    print(A+B)

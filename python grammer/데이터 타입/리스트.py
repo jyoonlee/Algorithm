@@ -31,6 +31,10 @@ remove_set = [3, 5]
 result = [i for i in a if i not in remove_set]
 print(result)
 
-
 # 리스트로 입력받기
 n = list(input().split())
+
+# 입력받은 리스트보다 작은 수
+a, b = map(int, input().split())
+score = [x for x in input().split() if int(x) < b]
+print(' '.join(score))
