@@ -17,5 +17,11 @@ for i in range(1, 10):
 print(result)
 
 
-# 중첩된 포문은 플로이드 워셜 + 다이나믹 프로그래밍 등에서 사용된다 
+# 중첩된 포문은 플로이드 워셜 + 다이나믹 프로그래밍 등에서 사용된다
+
+
+# for문 거꾸로
+n = int(input())
+for i in range(n, 0, -1):
+    print(i)
 
