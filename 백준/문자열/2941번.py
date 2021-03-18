@@ -11,3 +11,5 @@ for i in answer:
 
 word = word.replace(' ', '')
 print(count + len(word))
+
+# replace를 통해 단어들을 한글자로 바꾸고 len 해도 된다 
