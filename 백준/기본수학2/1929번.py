@@ -1,18 +1,21 @@
-M, N = map(int,input().split())
+# 소수는 제곱근 이하의 어떠한 소수로 나눠도 나누어 떨어지지 않는다.
+# 시간 복잡도 줄이기
 
-value = [x for x in range(M, N+1)]
+import math
 
-if 1 in value:
-    value.remove(1)
+m, n = map(int, input().split())
 
-for i in range(2, N+1):
-    for j in value:
-        if j % i == 0 and i != j:
-            value.remove(j)
+for i in range(m, n + 1):
+    flag = 0
+    if i == 1:
+        flag += 1
+        continue
 
-if len(value) == 0 or N == 1:
-    print("-1")
-else:
-    print(sum(value))
-    print(min(value))
+    x = int(math.sqrt(i))
+    for j in range(2, x + 1):
+        if i % j == 0:
+            flag += 1
+            break
 
+    if flag == 0:
+        print(i)
