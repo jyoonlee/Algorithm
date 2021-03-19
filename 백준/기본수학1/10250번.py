@@ -5,10 +5,15 @@ n = int(input())
 
 for _ in range(n):
     H, W, C = map(int, input().split())
-    room_number = C//H + 1
-    floor = C % H
+
+    if C%H == 0:
+        floor = H
+        room_number = int(C/H)
+    else:
+        floor = C % H
+        room_number = C // H + 1
 
     if room_number < 10:
-        print(str(floor)+'0'+str(room_number))
+            print(str(floor) + '0' + str(room_number))
     else:
-        print(str(floor)+str(room_number))
+        print(str(floor) + str(room_number))
