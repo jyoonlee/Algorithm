@@ -1,5 +1,4 @@
-M = int(input())
-N = int(input())
+M, N = map(int,input().split())
 
 value = [x for x in range(M, N+1)]
 
