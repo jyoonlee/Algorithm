@@ -1,3 +1,5 @@
+# 죽이고 싶은 문제, 주어진 수에서 소수의 최적 합 구하기
+
 prime_number = [0 for _ in range(10001)]
 prime_number[1] = 1
 
