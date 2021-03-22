@@ -13,7 +13,7 @@ for i in value:
     print("{} {}".format(i[1], i[0]))
 
 # import sys
-# 
+#
 # number = int(input())
 # position_list = []
 #
