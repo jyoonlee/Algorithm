@@ -6,10 +6,14 @@ value = []
 for _ in range(N):
     value.append(list(map(int, input().split())))
 
+value = sorted(value)
 
-value.sort()
+for i in value:
+    print("{} {}".format(i[0], i[1]))
 
-# 시간 초과 
+
+
+# 시간 초과
 # temp = []
 # for i in range(N):
 #     for j in range(i+1, N):
@@ -22,8 +26,4 @@ value.sort()
 #             if value[i][1] > value[j][1]:
 #                 value[i] = value[j]
 #                 value[j] = temp
-
-for i in value:
-    print("{} {}".format(i[0], i[1]))
-
 
