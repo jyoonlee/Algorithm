@@ -9,6 +9,7 @@ for _ in range(N):
 
 value.sort()
 
+# 시간 초과 
 # temp = []
 # for i in range(N):
 #     for j in range(i+1, N):
