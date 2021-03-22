@@ -1,6 +1,6 @@
 # 단어가 주어졌을 때 길이로 sorting 하고 길이가 같으면 사전순으로 다시 sorting
 
-value = [input() for _ in range(int(input()))]
+value = list(set(input() for _ in range(int(input()))))
 sorted_value = sorted(value, key=lambda x: (len(x), x))
 print('\n'.join(x for x in sorted_value))
 
