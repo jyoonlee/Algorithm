@@ -3,13 +3,11 @@ li = [list(map(int, input().split())) for _ in range(n)]
 check = []
 result = []
 
-test
 def op(a, b, start):
     if len(check) == n / 2:
         for z in range(len(li)):
             if z in check:
                 continue
-            else:
                 
 
         dif = sum(list(sum(x) for x in li)) - start*2
