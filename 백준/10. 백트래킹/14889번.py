@@ -3,6 +3,7 @@ li = [list(map(int, input().split())) for _ in range(n)]
 check = []
 result = []
 
+test
 def op(a, b, start):
     if len(check) == n / 2:
         for z in range(len(li)):
