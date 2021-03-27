@@ -1,16 +1,17 @@
+# 식이 주어졌을 때 적절히 괄호쳐서 최소값 구하기
 
-T = input()
-temp = T.replace('+', ' ')
-temp = temp.replace('-', ' ')
+import sys
+input = sys.stdin.readline
 
-num = list(map(int, temp.split(' ')))
-op = []
-for i in list(T):
-    if i == '+':
-        op.append('+')
-    elif i == '-':
-        op.append('-')
+plus = input().split('-')
+re = 0  # 총 합
 
-# sum = 0
-# if op[0]!= '+':
-#     for i in range(op.index('+')):
+# 초반에 플러스가 많이 올 경우 모두 합산
+for i in plus[0].split('+'):
+    re += int(i)
+
+for k in plus[1:]:
+    for j in k.split('+'):
+        re -= int(j)
+
+print(re)
