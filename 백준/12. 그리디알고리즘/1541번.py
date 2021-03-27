@@ -11,6 +11,6 @@ for i in list(T):
     elif i == '-':
         op.append('-')
 
-sum = 0
-if op[0]!= '+':
-    for i in range(op.index('+')):
+# sum = 0
+# if op[0]!= '+':
+#     for i in range(op.index('+')):
