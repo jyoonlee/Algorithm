@@ -1,5 +1,4 @@
 # 괄호 찾기 문제지만 조금 심화
-s
 
 import sys
 input = sys.stdin.readline
