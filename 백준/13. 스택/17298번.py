@@ -22,8 +22,6 @@ for i in li:
     print(i, end=' ')
 
 
-
-
 # 시간 초과
 # def stack(i):
 #     big = []
