@@ -15,7 +15,6 @@ while len(queue) != 0:
         li.append(queue.popleft())
         print(queue)
         count = 0
-
 print(li)
 
 
