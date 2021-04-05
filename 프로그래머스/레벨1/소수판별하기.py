@@ -12,7 +12,7 @@ while True:
     m = int(n ** 0.5)
     for i in range(2, m + 1):
         if prime[i]:
-            for j in range(i + i, n+1, i):
+            for j in range(i*2, n+1, i):
                 prime[j] = False
 
     print(len([i for i in range(n+1) if prime[i]])-2)
@@ -25,3 +25,5 @@ while True:
             a -= set([i for i in range(i * 2, n + 1, i)])
 
     print(len(a)+1)
+
+
