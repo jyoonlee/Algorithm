@@ -27,5 +27,3 @@ while True:
     print(len(a)+1)
 
 
-
-
