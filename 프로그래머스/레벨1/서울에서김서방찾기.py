@@ -7,6 +7,10 @@ def solution(seoul):
 
 
 
+s = '재윤이'
+n = 1
+s = '아'*(len(s)-n) + s
+print(s)
 
 
 
