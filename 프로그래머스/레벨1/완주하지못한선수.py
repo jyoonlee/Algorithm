@@ -9,5 +9,3 @@ def solution(participant, completion):
 
 
 
-
-
