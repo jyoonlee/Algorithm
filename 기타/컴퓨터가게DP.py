@@ -9,20 +9,48 @@
 # 순열에 관한 문제는 동적 프로그래밍이다
 
 jobs = [10, 8, 5, 3, 9]
-jobs.sort
+jobs.sort()
 
 
 def simulation(njob):
-    print('=== start simulation ===')
-    delays = list()     # 하나의 케이스
-    for i in range(0, len(njob)):
-        delays.append(0)
-    print(njob)
+    # print('=== start simulation ===')
+    # delays = list()  # 하나의 케이스
+    # for i in range(0, len(njob)):
+    #     delays.append(0)
+    # print(njob)
+    #
+    # for i in range(1, len(njob)):
+    #     for j in range(0, i):
+    #         delays[i] += jobs[j]
+    # print(delays)
+    # print("지연 합계:", sum(delays))
+    print("")
 
-    for i in range(1, len(njob)):
-        for j in range(0, i):
-            delays[i] += jobs[j]
-        
+
+solution = list()
+stack = list()  # 스택을 생성하라
+stack.append(list())  # 초기 경험 정보를 스택에 보관하여라
+while len(stack) > 0:  # 스택이 빌 때까지 반복하여라
+    elem = stack.pop()     # 스택에서 꺼내오시오
+
+    # 꺼내온 경험에서 다음 경험 목록을 전수 조사한다
+    for i in range(0, len(jobs)):
+        check = False
+        for j in range(0, len(elem)):
+            if jobs[i] == elem[j]:
+                check = True
+                break
+
+        if not check:
+            nelem = list()
+            nelem.extend(elem)  # 두개의 리스트를 합치는거야, 빈거에 하는거니까 복사겠지
+            nelem.append(jobs[i])   # nelem은 새로운 경험
+
+            if len(nelem) == len(jobs):   # 모든 공 다 꺼낸거지
+                solution.append(nelem)      # 솔루션에 추가
+            else:   # 아니라면 덜 꺼낸거니
+                stack.append(nelem)     # 스택에 추가
 
 
-
+for i in range(0, len(solution)):
+    simulation(solution[i])
