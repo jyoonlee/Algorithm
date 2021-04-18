@@ -13,18 +13,17 @@ jobs.sort()
 
 
 def simulation(njob):
-    # print('=== start simulation ===')
-    # delays = list()  # 하나의 케이스
-    # for i in range(0, len(njob)):
-    #     delays.append(0)
-    # print(njob)
-    #
-    # for i in range(1, len(njob)):
-    #     for j in range(0, i):
-    #         delays[i] += jobs[j]
-    # print(delays)
-    # print("지연 합계:", sum(delays))
-    print("")
+    print('=== start simulation ===')
+    delays = list()  # 하나의 케이스
+    for i in range(0, len(njob)):
+        delays.append(0)
+    print(njob)
+
+    for i in range(1, len(njob)):
+        for j in range(0, i):
+            delays[i] += njob[j]
+    print(delays)
+    print("지연 합계:", sum(delays))
 
 
 solution = list()
@@ -54,3 +53,6 @@ while len(stack) > 0:  # 스택이 빌 때까지 반복하여라
 
 for i in range(0, len(solution)):
     simulation(solution[i])
+
+
+    
