@@ -54,6 +54,8 @@ while len(stack) > 0:  # 스택이 빌 때까지 반복하여라
 for i in range(0, len(solution)):
     simulation(solution[i])
 
+    
+
 
 
 
