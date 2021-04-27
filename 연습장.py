@@ -8,4 +8,5 @@ for p1, p2 in zip(phone_book, phone_book[1:]):
         value = False
         break
 
+
 print(value)
