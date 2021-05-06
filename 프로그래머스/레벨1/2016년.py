@@ -10,3 +10,4 @@ def solution(a, b):
     today %= 7
 
     return day[today + 1]
+
