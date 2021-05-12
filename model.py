@@ -39,3 +39,6 @@ for i in f1_time:
         label.append(fre.index(max(fre)))
 
 print(label)
+
+
+
