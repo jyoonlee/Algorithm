@@ -91,24 +91,38 @@ name = 'wifiSensing.asv'  # 저장할 모델 이름
 # ====== storage model(처음 저장할 때) ====== #
 kfold = KFold(10, shuffle=True)
 
-# # RF
-# rf = RandomForestClassifier(random_state=0)
-#
-#
-# # 최적의 모델 생성
-# rf_grid = GridSearchCV(rf, param_grid=parameter, scoring="accuracy", n_jobs=-1, cv=kfold)
-# rf_grid.fit(x_train, y_train)
-#
-# pickle.dump(rf_grid, open(name, 'wb'))
-#
-# # 검증
-# prediction = rf_grid.predict(x_valid)
-# total_param = rf_grid.cv_results_['params']
-# total_score = rf_grid.cv_results_['mean_test_score']
-#
-# print('best parameter: ', rf_grid.best_params_)
-# print('best score: %.2f' % rf_grid.best_score_)
-# print(confusion_matrix(y_valid, prediction))
+
+print("======================RF======================")
+# RF
+rf = RandomForestClassifier(random_state=0)
+
+
+# 최적의 모델 생성
+rf_grid = GridSearchCV(rf, param_grid=parameter, scoring="accuracy", n_jobs=-1, cv=kfold)
+rf_grid.fit(x_train, y_train)
+
+pickle.dump(rf_grid, open(name, 'wb'))
+
+# 검증
+prediction = rf_grid.predict(x_valid)
+total_param = rf_grid.cv_results_['params']
+total_score = rf_grid.cv_results_['mean_test_score']
+
+print('best parameter: ', rf_grid.best_params_)
+print('best score: %.2f' % rf_grid.best_score_)
+
+rf_best = rf_grid.best_estimator_
+
+# 검증
+prediction = rf_best.predict(x_valid)
+
+print('score : {:.4f}'.format(accuracy_score(y_valid, prediction)))
+print(confusion_matrix(y_valid, prediction))
+print(classification_report(y_valid, prediction))
+
+
+
+print("======================LR======================")
 
 parameters = {'C': [0.1, 1.0, 10.0],
               'solver': ["liblinear", "lbfgs", "sag"],
