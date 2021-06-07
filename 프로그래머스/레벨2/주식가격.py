@@ -11,3 +11,4 @@ def solution(prices):
         answer.append(count)
 
     return answer
+
