@@ -1,190 +1,127 @@
-package com.ssafy.algorithm.BOJ;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ16236 {
-	static final int MAX = Integer.MAX_VALUE;
 	static StringTokenizer st;
 	static int N;
 	static int[][] map;
-	static List<Integer>[] adjList;
-	static List<Fish> fishes;
-	static int[] dy = { -1, 0, 1, 0 };
-	static int[] dx = { 0, 1, 0, -1 };
 	static Shark me;
-	static int time = 0;
+	static int[] dy = { -1, 0, 1, 0 };
+	static int[] dx = { 0, -1, 0, 1 };
 
-	// 상어 클래스
-	static class Shark {
-		int where;
+	static class Shark { // 아기상어 주인공 객체
+		int y;
+		int x;
 		int size;
 		int eat;
 
-		public Shark(int where) {
-			super();
-			this.where = where;
-			this.size = 2;
-			this.eat = 0;
-		}
-	}
-
-	// 물고기 클래스
-	static class Fish implements Comparable<Fish> {
-		int where;
-		int size;
-
-		public Fish(int where, int size) {
-			super();
-			this.where = where;
+		public Shark(int y, int x, int size, int eat) {
+			this.y = y;
+			this.x = x;
 			this.size = size;
-		}
-
-		@Override
-		public int compareTo(Fish o) {
-			return this.where - o.where;
+			this.eat = eat;
 		}
 	}
-
-	// 물고기로부터 상어 위치 찾기
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
 		N = Integer.parseInt(in.readLine());
-		int V = N * N;
+		map = new int[N][N];
+		int time = 0;
 
-		adjList = new ArrayList[V]; // 인접 리스트
-		fishes = new ArrayList<>(); // 물고기 정보 배열
-		me = new Shark(0); // 상어 생성
-
-		for (int i = 0; i < V; i++) {
-			adjList[i] = new ArrayList<>();
-		}
-
-		// 인접 리스트 생성하기 (N*N개의 노드)
-		int nodeNum = 0;
+		// 맵 입력
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(in.readLine());
 			for (int j = 0; j < N; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
 
-				int now = Integer.parseInt(st.nextToken());
-				if (now != 0) {
-					if (now == 9) // 주인공이라면 노드 정보 저장
-						me.where = nodeNum;
-					else {
-						fishes.add(new Fish(nodeNum, now)); // 아니라면 물고기 정보 저장
-					}
+				if (map[i][j] == 9) {
+					me = new Shark(i, j, 2, 0);
+					map[i][j] = 0; // 아기 상어 위치 0으로 초기화
 				}
-
-				for (int z = 0; z < 4; z++) { // 사방탐색
-					int ni = i + dy[z];
-					int nj = j + dx[z];
-
-					if (ni >= 0 && ni < N && nj >= 0 && nj < N) { // 주변에 노드가 있다면
-
-						// 인접 노드 정보를 저장한다.
-						switch (z) {
-						case 0:
-							adjList[nodeNum].add(nodeNum - N);
-							break;
-						case 1:
-							adjList[nodeNum].add(nodeNum + 1);
-							break;
-						case 2:
-							adjList[nodeNum].add(nodeNum + N);
-							break;
-						case 3:
-							adjList[nodeNum].add(nodeNum - 1);
-							break;
-						}
-					}
-				}
-				nodeNum++; // 노드 번호 카운팅
 			}
 		}
 
-		// 노드 번호가 작은 순으로 탐색이 진행되어야 한다.
-		for (int i = 0; i < V; i++) {
-			Collections.sort(adjList[i]);
-		}
+		while (true) {
+			int temp = bfs(); // 먹으러간 시간 반환, 없다면 -1 반환
 
-		Collections.sort(fishes);
-
-		boolean finish = false;
-		while (true) { // 물고기를 다 잡아먹거나, 더이상 잡아먹을 수 없을 때까지 탐색
-
-			if (fishes.size() == 0) // 물고기 다 먹으면 break
+			if (temp == -1)
 				break;
-
-			int path = Integer.MAX_VALUE;
-			int who = 0;
-			boolean flag = false;
-
-			for (int idx = 0; idx < fishes.size(); idx++) {
-				if (fishes.get(idx).size >= me.size)
-					continue;
-
-				flag = true;
-				int start = fishes.get(idx).where;
-
-				int[] distance = new int[V];
-				boolean[] visited = new boolean[V];
-				Arrays.fill(distance, MAX);
-				distance[start] = 0;
-
-				for (int i = 0; i < V; i++) {
-					int current = -1;
-					int min = MAX;
-
-					// 최솟값 인덱스, 값 찾기
-					for (int j = 0; j < V; j++) {
-						if (!visited[j] && distance[j] < min) {
-							min = distance[j];
-							current = j;
-						}
-					}
-
-					if (current == me.where || current == -1) // 물고기 찾았다면 탈출
-						break;
-
-					visited[current] = true;
-					List<Integer> now = adjList[current];
-
-					Loop: for (int j = 0; j < now.size(); j++) {
-						if (!visited[now.get(j)] && distance[now.get(j)] > min + 1)
-							for (int z = 0; z < fishes.size(); z++) {
-								if (fishes.get(z).where == now.get(j) && fishes.get(z).size > me.size)
-									continue Loop;
-							}
-						distance[now.get(j)] = min + 1;
-					}
-				}
-
-				if (path > distance[me.where]) {
-					path = distance[me.where];
-					who = idx;
-				}
-			}
-
-			if (!flag || path == Integer.MAX_VALUE) // 한마리도 먹을게 없다면 탈출
-				break;
-			else {
-				me.where = fishes.get(who).where;
-				fishes.remove(who);
-				if (me.size == ++me.eat) {
-					me.size++;
-					me.eat = 0;
-				}
-
-				time += path;
-			}
+			else
+				time += temp;
 		}
+
 		System.out.println(time);
+	}
+
+	private static int bfs() {
+		Queue<int[]> queue = new LinkedList<>();
+		boolean[][] check = new boolean[N][N];
+
+		queue.offer(new int[] { me.y, me.x, 0 }); // 아기 상어 위치
+		check[me.y][me.x] = true; // 방문 체크
+
+		List<int[]> fishes = new ArrayList<>(); // 먹을 물고기 배열
+		int minDistance = Integer.MAX_VALUE; // 최단 거리
+
+		while (!queue.isEmpty()) {
+			int[] now = queue.poll();
+
+			if (now[2] == minDistance) // 최단 거리를 마주쳤다면, 이미 먹을 물고기를 배열 안에 넣은 상태, break
+				break;
+
+			for (int i = 0; i < 4; i++) {
+				int ni = now[0] + dy[i];
+				int nj = now[1] + dx[i];
+
+				// 지나갈 수 있다면?
+				if (ni >= 0 && ni < N && nj >= 0 && nj < N && !check[ni][nj] && map[ni][nj] <= me.size) {
+					check[ni][nj] = true;
+					queue.offer(new int[] { ni, nj, now[2] + 1 }); // queue에 저장
+
+					if (map[ni][nj] > 0 && map[ni][nj] < me.size) { // 만약 먹을 수 있다면
+						minDistance = now[2] + 1;
+						fishes.add(new int[] { ni, nj, now[2] + 1 }); // 먹을 수 있는 물고기로 추가
+					}
+				}
+			}
+		}
+
+		if (fishes.size() == 0) // 먹을 수 없다면 -1 반환
+			return -1;
+
+		Collections.sort(fishes, new Comparator<int[]>() { // 행, 열 기준으로 정렬
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				int diff1 = o1[0] - o2[0];
+				int diff2 = o2[1] - o2[1];
+				return diff1 == 0 ? diff2 : diff1;
+			}
+		});
+
+		// 물고기 먹기
+		int[] nowFish = fishes.get(0);
+
+		me.y = nowFish[0];
+		me.x = nowFish[1];
+		map[me.y][me.x] = 0;
+		me.eat += 1;
+
+		// 물고기 크기 키우기
+		if (me.eat == me.size) {
+			me.eat = 0;
+			me.size += 1;
+		}
+
+		return nowFish[2]; // 먹을때까지 걸리는 시간 반환
 	}
 }
