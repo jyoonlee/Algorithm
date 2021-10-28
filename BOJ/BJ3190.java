@@ -24,10 +24,10 @@ public class BJ3190 {
 
 		N = Integer.parseInt(in.readLine());
 		K = Integer.parseInt(in.readLine());
-		order = new LinkedList<>();
-		map = new int[N][N];
-		snake = new ArrayList<>();
-		snake.add(new int[] { 0, 0 });
+		order = new LinkedList<>(); // 명령 순서 처리
+		map = new int[N][N]; // 전체 맵 
+		snake = new ArrayList<>(); // 뱀의 몸통 정보 담을 배열 
+		snake.add(new int[] { 0, 0 }); // 초기 위치 
 
 		for (int i = 0; i < K; i++) {
 			StringTokenizer st = new StringTokenizer(in.readLine());
@@ -35,14 +35,14 @@ public class BJ3190 {
 			int y = Integer.parseInt(st.nextToken()) - 1;
 			int x = Integer.parseInt(st.nextToken()) - 1;
 
-			map[y][x] = 1;
+			map[y][x] = 1; // 먹이 표시
 		}
 
 		L = Integer.parseInt(in.readLine());
 
 		for (int i = 0; i < L; i++) {
 			StringTokenizer st = new StringTokenizer(in.readLine());
-			order.offer(new String[] { st.nextToken(), st.nextToken() });
+			order.offer(new String[] { st.nextToken(), st.nextToken() }); // 큐에 명령 저장 
 		}
 
 		game();
@@ -57,24 +57,27 @@ public class BJ3190 {
 
 		while (true) {
 
+			// 큐가 비어있지 않을 때 & 명령 시간이 되었을 때 
 			if (!order.isEmpty() && Integer.parseInt(order.peek()[0]) == time) {
 				String[] now = order.poll();
 
+				// 방향 전환해주기 
 				if (now[1].equals("D"))
-					direction = (direction + 1) % 4;
+					direction = (direction + 1) % 4; // 오른쪽으로 90도
 				else
-					direction = direction - 1 < 0 ? 3 : direction - 1;
+					direction = direction - 1 < 0 ? 3 : direction - 1; // 왼쪽으로 90도
 			}
 
+			// 방향 전환
 			ny += dy[direction];
 			nx += dx[direction];
 			time++;
 
-			if (isPossible(ny, nx)) {
+			if (isPossible(ny, nx)) { // 뱀의 게임이 끝났는 지 판별
 
 				if (map[ny][nx] != 1) {
 					snake.add(new int[] { ny, nx });
-					snake.remove(0);
+					snake.remove(0); // 먹이를 먹지 못했다면 꼬리 자르기 
 				} else {
 					snake.add(new int[] { ny, nx });
 					map[ny][nx] = 0;
@@ -87,13 +90,13 @@ public class BJ3190 {
 
 	private static boolean isPossible(int y, int x) {
 
-		if (y >= 0 && y < N && x >= 0 && x < N) {
+		if (y >= 0 && y < N && x >= 0 && x < N) { // 범위 탐색
 
 			for (int i = 0; i < snake.size(); i++) {
 
-				int[] now = snake.get(i);
+				int[] now = snake.get(i); // 새로 갈 위치가 뱀의 몸통 부위와 겹치는 지 판별
 				if (y == now[0] && x == now[1])
-					return false;
+					return false; // 겹친다면 게임 종료
 			}
 
 			return true;
